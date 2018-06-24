@@ -10,88 +10,102 @@ import modelo.Produto;
 import repositorio.Restaurante;
 
 public class Fachada {
-
-
-	// coloquei métodos da fachada, seguindo documentação
-	// deve buscar por algo que for digitado
-	public static ArrayList<Produto> listarProdutos(Produto nome){
-		return ArrayList<Produto>;
-		}
+	Restaurante repositorio;
+		
+	public Fachada(Restaurante repositorio) {
+		super();
+		this.repositorio = repositorio;
+	}
+	
+	
+	//Você vai fazer tudo com base no repositório
+	
 	//ao digitar enter, deve listar todos os produtos
-	public static ArrayList<Produto> listarProdutos(ActionEvent e){
-		return ArrayList<Produto>;
-		}
+	//ESSE APERTAR ENTER É LÁ NA TELA AQUI SÓ VAI RETORNAR DADOS
+	public ArrayList<Produto> listarProdutos(ActionEvent e){
+		return repositorio.getProdutos();
+	}
 
-	public static ArrayList<Garcom> listarGarcons(){
-		return ArrayList<Garcom>;
-		}
+	public ArrayList<Garcom> listarGarcons(){
+		return repositorio.getGarcons();
+	}
 
-	public static ArrayList<Mesa> listarMesass(){
-		return ArrayList<Mesa>;
-		}
+	public ArrayList<Mesa> listarMesass(){
+		return repositorio.getMesas();
+	}
 
-	public static ArrayList<Conta> listarContas(){
-		return ArrayList<Conta>;
-		}
+	public ArrayList<Conta> listarContas(){
+		return repositorio.getContas();
+	}
 
-	public static void criarMesas(int n){
+	public void criarMesas(int n){
 		
 		
 	}
 
-	public static Produto cadastrarProduto(String nome, double preco) {
+	public Produto cadastrarProduto(String nome, double preco) {
 		return Produto;
 	}
 
-	public static Garcom cadastrarGarcom(String apelido, int[] mesainicial, int[] mesafinal){
+	public Garcom cadastrarGarcom(String apelido, int[] mesainicial, int[] mesafinal){
 		return Garcom;
 	}
 
-	public static Conta criarConta(int idmesa){
+	public Conta criarConta(int idmesa){
 		return idmesa;
 	}
 
-	public static Conta consultarConta(int idmesa){
+	public Conta consultarConta(int idmesa){
 		return Conta;
 	}
 
-	public static Produto solicitarProduto(int idmesa, String nomeproduto){
+	public Produto solicitarProduto(int idmesa, String nomeproduto){
 		return Produto;
 	}
 
-	public static void cancelarConta(int idmesa){
+	public void cancelarConta(int idmesa){
 	
 	}
 
-	public static void transferirConta(int idmesaorigem, int idmesadestino){
+	public void transferirConta(int idmesaorigem, int idmesadestino){
 	
 	}
 
-	public static void fecharConta(int idmesa){
+	public void fecharConta(int idmesa){
 	
 	}
 
-	public static double calcularGorjeta(String apelido){
+	public double calcularGorjeta(String apelido){
 		return;
 	}
 
-	public static void addGarcom(Garcom g) {
-		
+	
+	
+	//Todos esses abaixo vc já tem esses métodos prontos no repositório então pq refazer? vou refazer um deles como deve ficar e tu atualiza o resto.
+	
+	public void addGarcom(String apelido) {
+		//Você não vai receber o garçom aqui, vc vai receber o apelido, lembra a view só vai te mandar dados(String, int.. Toda a regra deve ser feita aqui!)
+		//Como esse método já pronto, então eu recebo o int e mando para o repositório criar o garçom.
+		//Se vc quiser uma confirmação para a tela e tals, tu pode colocar para boolean e retornar um true se tudo deu certo
+		Garcom g = new Garcom(apelido);
+		repositorio.addGarcom(g);
 	}
 
-	public static void removeGarcom(Garcom g){
-		garcons.remove(g);
+	public void removeGarcom(String apelido){
+		//Usando a mesma lógica do anterior logo:
+		Garcom g = repositorio.buscarGarcom(apelido);
+		//vou buscar a referencia do garçom e depois excluir
+		//Esse G tu vai ter o mesmo conteudo do garcom lá no repositorio, logo se vc excluir ou alterar reflete lá também
+		repositorio.removeGarcom(g);
 	}	
 
-	public static Garcom buscarGarcom(String apelido) {
-		for(Garcom c:garcons) {
-			if(c.getApelido().equals(apelido)) {
-				return c;
-			}
-		}
-		return null;
+	public Garcom buscarGarcom(String apelido) {
+		Garcom g = repositorio.buscarGarcom(apelido);
+		return g;
 	}
 
+	
+	//O mesmo vale para os próximos só seguindo a lógica de cada 1
 	public static void addConta(Conta c) {
 		contas.add(c);
 	}
