@@ -12,10 +12,10 @@ import java.util.Date;
 
 public class Restaurante {
 	
-	private ArrayList<Conta> contas; //ok
-	private ArrayList<Mesa> mesas; //ok
+	private ArrayList<Conta> contas;
+	private ArrayList<Mesa> mesas; 
 	private ArrayList<Garcom> garcons;
-	private ArrayList<Produto> produtos; //ok
+	private ArrayList<Produto> produtos;
 	
 	public ArrayList<Conta> getContas() {
 		return contas;
@@ -30,9 +30,6 @@ public class Restaurante {
 		return produtos;
 	}
 	
-	//Você não vai setar diretamente nos arrays, você vai ter métodos para adicionar, remover e buscar dados neles, o que get ainda da para deixar pq vc pode quere pegar todos os dados do array.
-	
-	//Produto
 	public void addProduto(Produto p){
 		this.produtos.add(p);
 	}
@@ -50,8 +47,6 @@ public class Restaurante {
 		return null;
 	}
 	
-	
-	//Conta
 	public void addConta(Conta c) {
 		this.contas.add(c);
 	}
@@ -69,8 +64,6 @@ public class Restaurante {
 		return null;
 	}
 	
-	
-	//Mesa
 	public void addMesa(Mesa m) {
 		this.mesas.add(m);
 	}
@@ -88,8 +81,6 @@ public class Restaurante {
 		return null;
 	}
 	
-	
-	//Garcom
 	public void addGarcom(Garcom m) {
 		this.garcons.add(m);
 	}
@@ -107,9 +98,6 @@ public class Restaurante {
 		return null;
 	}
 	
-	//===================================
-	//Colocar alguns método especificos como o de data.
-	
 	public String dataHoraAtual() {
 		 Date dataHoraAtual = new Date();
 		 String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
@@ -117,4 +105,5 @@ public class Restaurante {
 	     String dataHora = data+" - "+hora;
 	     return dataHora;
 	}
+	
 }

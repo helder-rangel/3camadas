@@ -10,152 +10,146 @@ import modelo.Produto;
 import repositorio.Restaurante;
 
 public class Fachada {
-	Restaurante repositorio;
+	private Restaurante repositorio = new Restaurante();
+	private static int idmesas = 0;
+	private static int idcontas = 0;
+	private ArrayList<Mesa> mesas;
 		
-	public Fachada(Restaurante repositorio) {
+	public Fachada() {
 		super();
-		this.repositorio = repositorio;
 	}
 	
+	public Produto buscarProduto (String nome) throws Exception{
+		Produto p = repositorio.buscarProduto(nome);
+		if(p==null) {
+			throw new Exception("Produto não encontrado.");
+		}
+		return p;
+	}
 	
-	//Você vai fazer tudo com base no repositório
-	
-	//ao digitar enter, deve listar todos os produtos
-	//ESSE APERTAR ENTER É LÁ NA TELA AQUI SÓ VAI RETORNAR DADOS
-	public ArrayList<Produto> listarProdutos(ActionEvent e){
-		return repositorio.getProdutos();
+	public ArrayList<Produto> listarProdutos() throws Exception{
+		ArrayList<Produto> produtos = repositorio.getProdutos();
+		if(produtos==null) {
+			throw new Exception("Não existem produtos cadastrados no restaurante.");
+		}
+		return produtos;
 	}
 
-	public ArrayList<Garcom> listarGarcons(){
-		return repositorio.getGarcons();
+	public ArrayList<Garcom> listarGarcons() throws Exception{
+		ArrayList<Garcom> garcons = repositorio.getGarcons();
+		if(garcons==null) {
+			throw new Exception("Não existem garçons cadastrados no restaurante.");
+		}
+		return garcons;
 	}
 
-	public ArrayList<Mesa> listarMesass(){
-		return repositorio.getMesas();
+	public ArrayList<Mesa> listarMesas() throws Exception{
+		ArrayList<Mesa> mesas = repositorio.getMesas();
+		if(mesas==null) {
+			throw new Exception("Não existem mesas cadastrados no restaurante.");
+		}
+		return mesas;
 	}
 
-	public ArrayList<Conta> listarContas(){
-		return repositorio.getContas();
+	public ArrayList<Conta> listarContas() throws Exception{
+		ArrayList<Conta> contas = repositorio.getContas();
+		if(contas==null) {
+			throw new Exception("Não existem mesas cadastrados no restaurante.");
+		}
+		return contas;
 	}
 
-	public void criarMesas(int n){
-		
-		
+	public void criarMesas(int quantidade){
+		while(quantidade == 0) {
+			Mesa m = new Mesa(Fachada.idmesas);
+			repositorio.addMesa(m);
+			Fachada.idmesas++;
+			quantidade--;
+		}
 	}
 
 	public Produto cadastrarProduto(String nome, double preco) {
-		return Produto;
+		Produto p = new Produto(nome, preco);
+		repositorio.addProduto(p);
+		return p;
 	}
 
-	public Garcom cadastrarGarcom(String apelido, int[] mesainicial, int[] mesafinal){
-		return Garcom;
-	}
-
-	public Conta criarConta(int idmesa){
-		return idmesa;
-	}
-
-	public Conta consultarConta(int idmesa){
-		return Conta;
-	}
-
-	public Produto solicitarProduto(int idmesa, String nomeproduto){
-		return Produto;
-	}
-
-	public void cancelarConta(int idmesa){
-	
-	}
-
-	public void transferirConta(int idmesaorigem, int idmesadestino){
-	
-	}
-
-	public void fecharConta(int idmesa){
-	
-	}
-
-	public double calcularGorjeta(String apelido){
-		return;
-	}
-
-	
-	
-	//Todos esses abaixo vc já tem esses métodos prontos no repositório então pq refazer? vou refazer um deles como deve ficar e tu atualiza o resto.
-	
-	public void addGarcom(String apelido) {
-		//Você não vai receber o garçom aqui, vc vai receber o apelido, lembra a view só vai te mandar dados(String, int.. Toda a regra deve ser feita aqui!)
-		//Como esse método já pronto, então eu recebo o int e mando para o repositório criar o garçom.
-		//Se vc quiser uma confirmação para a tela e tals, tu pode colocar para boolean e retornar um true se tudo deu certo
-		Garcom g = new Garcom(apelido);
-		repositorio.addGarcom(g);
-	}
-
-	public void removeGarcom(String apelido){
-		//Usando a mesma lógica do anterior logo:
-		Garcom g = repositorio.buscarGarcom(apelido);
-		//vou buscar a referencia do garçom e depois excluir
-		//Esse G tu vai ter o mesmo conteudo do garcom lá no repositorio, logo se vc excluir ou alterar reflete lá também
-		repositorio.removeGarcom(g);
-	}	
-
-	public Garcom buscarGarcom(String apelido) {
-		Garcom g = repositorio.buscarGarcom(apelido);
+	public Garcom cadastrarGarcom(String apelido, int mesainicial, int mesafinal){
+		this.mesas = null; //Toda vez que chamar o método ele limpa
+		while(mesainicial <= mesafinal) {
+			Mesa e = repositorio.buscarMesa(mesainicial);
+			mesas.add(e);
+			mesainicial++;
+		}
+		Garcom g = new Garcom(apelido, mesas);
 		return g;
 	}
 
-	
-	//O mesmo vale para os próximos só seguindo a lógica de cada 1
-	public static void addConta(Conta c) {
-		contas.add(c);
-	}
-
-	public static void removeConta(Conta c) {
-		contas.remove(c);
-	}
-
-	public static Conta buscarConta(int id) {
-		for(Conta c:contas) {
-			if(c.getNumero()==id) {
-				return c;
-			}
+	public Conta criarConta(int idmesa) throws Exception{
+		Mesa m = repositorio.buscarMesa(idmesa);
+		
+		if(m==null) {
+			throw new Exception("Mesa não existe.");
 		}
-		return null;
+		
+		Conta c = new Conta(Fachada.idcontas,m);
+		Fachada.idcontas++;
+		repositorio.addConta(c);
+		m.addConta(c);//Adiciona a referencia de conta na mesa
+		return c;
 	}
 
-	public static void addMesa(Mesa m) {
-		mesas.add(m);
-	}
-
-	public static void removeMesa(Mesa m) {
-		mesas.remove(m);
-	}
-
-	public static Mesa buscarMesa(int id) {
-		for(Mesa m:mesas) {
-			if(m.getId()==id) {
-				return m;
-			}
+	public Conta consultarConta(int idmesa) throws Exception{
+		Mesa m = repositorio.buscarMesa(idmesa);
+		if(m==null) {
+			throw new Exception("Mesa não existe.");
 		}
-		return null;
+		Conta c = m.contaDaMesa(); //Criei esse método
+		return c;
 	}
 
-	public static Produto addProduto(String no, double pre){
-		return addProduto(no,pre);
-	}
-
-	public static void removeProduto(Produto p) {
-		produtos.remove(p);
-	}
-
-	public static Produto buscarProduto(String nome) {
-		for(Produto p:produtos) {
-			if(p.getNome().equals(nome)) {
-				return p;
-			}
+	public Produto solicitarProduto(int idmesa, String nomeproduto) throws Exception{
+		Produto p = repositorio.buscarProduto(nomeproduto);
+		if(p==null) {
+			throw new Exception("Produto não existe.");
 		}
-		return null;
+		Conta c = this.consultarConta(idmesa);
+		c.addProduto(p);
+		return p;
 	}
 
+	public void cancelarConta(int idmesa){
+		Mesa m = repositorio.buscarMesa(idmesa);
+		Conta c = m.contaDaMesa();
+		m.removeConta(c);
+		repositorio.removeConta(c);
+	}
 
+	public void transferirConta(int idmesaorigem, int idmesadestino){
+		Mesa mesaOrigem = repositorio.buscarMesa(idmesaorigem);
+		Mesa mesaDestino = repositorio.buscarMesa(idmesadestino);
+		Conta contOrigem = mesaOrigem.contaDaMesa();
+		Conta contDestino = mesaDestino.contaDaMesa();
+		ArrayList<Produto> produtos = contOrigem.getProdutos();
+		
+		//Apagar a conta
+		mesaOrigem.removeConta(contOrigem);
+		repositorio.removeConta(contOrigem);
+		
+		//transferir produtos
+		for (Produto p:produtos) {
+			contDestino.addProduto(p);
+		}
+	}
+
+	public void fecharConta(int idmesa){
+		Mesa m = repositorio.buscarMesa(idmesa);
+		Conta c = m.contaDaMesa();
+		String data = repositorio.dataHoraAtual();
+		c.setDtfechamento(data);
+	}
+
+	public double calcularGorjeta(String apelido, double total){
+		return ;
+	}
 }

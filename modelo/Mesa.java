@@ -9,11 +9,11 @@ public class Mesa {
 	private Garcom garcom;
 	private ArrayList<Conta> contas;
 	
-	public Mesa(int id, boolean ocupada, Garcom garcom) {
+	public Mesa(int id) {
 		super();
 		this.id = id;
-		this.ocupada = ocupada;
-		this.garcom = garcom;
+		this.ocupada = false;
+		this.garcom = null;
 		this.contas = null;
 	}
 
@@ -69,5 +69,9 @@ public class Mesa {
 			}
 		}
 		return null;
+	}
+	
+	public Conta contaDaMesa() {
+		return contas.get(contas.size()-1);
 	}
 }

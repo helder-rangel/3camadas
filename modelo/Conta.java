@@ -56,11 +56,11 @@ public class Conta {
 				+ ", produtos=" + produtos + "]";
 	}
 
-	public Conta(int numero, String dtfechamento, double total, Mesa mesa) {
+	public Conta(int numero, Mesa mesa) {
 		super();
 		this.numero = numero;
-		this.dtfechamento = dtfechamento;
-		this.total = total;
+		this.dtfechamento = null;
+		this.total = 0;
 		this.mesa = mesa;
 		this.produtos = null;
 	}
@@ -81,4 +81,6 @@ public class Conta {
 		}
 		return null;
 	}
+	
+	
 }

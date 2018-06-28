@@ -23,10 +23,10 @@ public class Garcom {
 		this.mesas = mesas;
 	}
 	
-	public Garcom(String apelido) {
+	public Garcom(String apelido, ArrayList<Mesa> mesas) {
 		super();
 		this.apelido = apelido;
-		this.mesas = null;
+		this.mesas = mesas;
 	}
 	
 	@Override
