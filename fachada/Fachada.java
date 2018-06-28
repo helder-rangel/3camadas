@@ -70,7 +70,7 @@ public class Fachada {
 		}
 	}
 
-	public Produto cadastrarProduto(String nome, double preco) {
+	public static Produto cadastrarProduto(String nome, double preco) {
 		Produto p = new Produto(nome, preco);
 		repositorio.addProduto(p);
 		return p;
