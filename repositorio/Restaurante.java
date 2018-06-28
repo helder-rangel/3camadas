@@ -101,8 +101,9 @@ public class Restaurante {
 	public String dataHoraAtual() {
 		 Date dataHoraAtual = new Date();
 		 String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
-	     String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
-	     String dataHora = data+" - "+hora;
+	     //String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+	     //String dataHora = data+" - "+hora;
+	     String dataHora = data;
 	     return dataHora;
 	}
 	

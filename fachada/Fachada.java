@@ -1,7 +1,8 @@
 package fachada;
 
-import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import modelo.Conta;
 import modelo.Garcom;
@@ -13,7 +14,8 @@ public class Fachada {
 	private Restaurante repositorio = new Restaurante();
 	private static int idmesas = 0;
 	private static int idcontas = 0;
-	private ArrayList<Mesa> mesas;
+	private ArrayList<Mesa> mesas = null;
+	private Double gorjeta = 0.0;
 		
 	public Fachada() {
 		super();
@@ -92,10 +94,15 @@ public class Fachada {
 			throw new Exception("Mesa não existe.");
 		}
 		
+		if(m.isOcupada()==true) {
+			throw new Exception("Última conta da mesa ainda não foi fechada.");
+		}
+		
 		Conta c = new Conta(Fachada.idcontas,m);
 		Fachada.idcontas++;
 		repositorio.addConta(c);
 		m.addConta(c);//Adiciona a referencia de conta na mesa
+		m.setOcupada(true);
 		return c;
 	}
 
@@ -140,16 +147,44 @@ public class Fachada {
 		for (Produto p:produtos) {
 			contDestino.addProduto(p);
 		}
+		mesaOrigem.setOcupada(false);
+		mesaDestino.setOcupada(true);
 	}
 
-	public void fecharConta(int idmesa){
+	public void fecharConta(int idmesa) throws Exception{
 		Mesa m = repositorio.buscarMesa(idmesa);
 		Conta c = m.contaDaMesa();
+		if(c.getDtfechamento()!=null) {
+			throw new Exception("Conta já fechada.");
+		}
 		String data = repositorio.dataHoraAtual();
 		c.setDtfechamento(data);
+		m.setOcupada(false);
 	}
 
-	public double calcularGorjeta(String apelido, double total){
-		return ;
+	public double calcularGorjeta(String apelido, double total) throws Exception{
+		this.gorjeta = 0.0;
+		Garcom garcom = repositorio.buscarGarcom(apelido);
+		if(garcom==null) {
+			throw new Exception("Garçom não existe.");
+		}
+		ArrayList<Mesa> mesas = garcom.getMesas();
+		Date dataHoraAtual = new Date();
+		String dataDeHoje = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+		for(Mesa m : mesas) {
+			for(Conta c : m.getContas()) {
+				if(c.getDtfechamento().equals(dataDeHoje)) {
+					this.gorjeta = this.gorjeta + (c.getTotal() * 0.10); 
+				}
+			}
+		}
+		return this.gorjeta;
+	}
+	
+	//=====================
+	public Produto addProduto(String nome, double preco) {
+		Produto p = new Produto(nome, preco);
+		repositorio.addProduto(p);
+		return p;
 	}
 }
