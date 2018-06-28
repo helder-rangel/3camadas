@@ -10,7 +10,7 @@ package fachada;
 		 
 		public class TesteRapido {
 		     
-		    public static void main (String[] args) {  
+		    public static void main (String[] args) { 
 		        parte1();
 		        parte2();
 		        System.out.println("fim do teste");
@@ -52,19 +52,19 @@ package fachada;
 		    public static void parte2() {
 		        try {
 		            Fachada.criarConta(1);  //mesa 1
-		            Fachada.solcitarProduto(1, "galinhada");
-		            Fachada.solcitarProduto(1, "cerveja");
-		            Fachada.solcitarProduto(1, "refrigerante");
+		            Fachada.solicitarProduto(1, "galinhada");
+		            Fachada.solicitarProduto(1, "cerveja");
+		            Fachada.solicitarProduto(1, "refrigerante");
 		            System.out.println("conta da mesa 1: \n"+ Fachada.consultarConta(1)); 
-		            Fachada.solcitarProduto(1, "cerveja");
-		            Fachada.solcitarProduto(1, "cerveja");
+		            Fachada.solicitarProduto(1, "cerveja");
+		            Fachada.solicitarProduto(1, "cerveja");
 		            Fachada.fecharConta(1);
 		            System.out.println("conta da mesa 1: \n"+ Fachada.consultarConta(1)); 
 		 
 		 
 		            Fachada.criarConta(5);  //mesa 5
-		            Fachada.solcitarProduto(5, "feijoada");
-		            Fachada.solcitarProduto(5, "cerveja");
+		            Fachada.solicitarProduto(5, "feijoada");
+		            Fachada.solicitarProduto(5, "cerveja");
 		            Fachada.fecharConta(5);
 		            System.out.println("conta da mesa 5: \n"+ Fachada.consultarConta(5)); 
 		 
@@ -80,13 +80,4 @@ package fachada;
 		            System.out.println(e.getMessage());
 		        }
 		    }
-		     
-		     
-		 
-		 
-		}
-
 	}
-
-
-}

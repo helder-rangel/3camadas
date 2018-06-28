@@ -11,11 +11,11 @@ import modelo.Produto;
 import repositorio.Restaurante;
 
 public class Fachada {
-	private Restaurante repositorio = new Restaurante();
+	private static Restaurante repositorio = new Restaurante();
 	private static int idmesas = 0;
 	private static int idcontas = 0;
-	private ArrayList<Mesa> mesas = null;
-	private Double gorjeta = 0.0;
+	private static ArrayList<Mesa> mesas = null;
+	private static Double gorjeta = 0.0;
 		
 	public Fachada() {
 		super();
@@ -29,7 +29,7 @@ public class Fachada {
 		return p;
 	}
 	
-	public ArrayList<Produto> listarProdutos() throws Exception{
+	public static ArrayList<Produto> listarProdutos() throws Exception{
 		ArrayList<Produto> produtos = repositorio.getProdutos();
 		if(produtos==null) {
 			throw new Exception("Não existem produtos cadastrados no restaurante.");
@@ -37,7 +37,7 @@ public class Fachada {
 		return produtos;
 	}
 
-	public ArrayList<Garcom> listarGarcons() throws Exception{
+	public static ArrayList<Garcom> listarGarcons() throws Exception{
 		ArrayList<Garcom> garcons = repositorio.getGarcons();
 		if(garcons==null) {
 			throw new Exception("Não existem garçons cadastrados no restaurante.");
@@ -45,7 +45,7 @@ public class Fachada {
 		return garcons;
 	}
 
-	public ArrayList<Mesa> listarMesas() throws Exception{
+	public static ArrayList<Mesa> listarMesas() throws Exception{
 		ArrayList<Mesa> mesas = repositorio.getMesas();
 		if(mesas==null) {
 			throw new Exception("Não existem mesas cadastrados no restaurante.");
@@ -53,7 +53,7 @@ public class Fachada {
 		return mesas;
 	}
 
-	public ArrayList<Conta> listarContas() throws Exception{
+	public static ArrayList<Conta> listarContas() throws Exception{
 		ArrayList<Conta> contas = repositorio.getContas();
 		if(contas==null) {
 			throw new Exception("Não existem mesas cadastrados no restaurante.");
@@ -61,7 +61,7 @@ public class Fachada {
 		return contas;
 	}
 
-	public void criarMesas(int quantidade){
+	public static void criarMesas(int quantidade){
 		while(quantidade == 0) {
 			Mesa m = new Mesa(Fachada.idmesas);
 			repositorio.addMesa(m);
@@ -76,8 +76,8 @@ public class Fachada {
 		return p;
 	}
 
-	public Garcom cadastrarGarcom(String apelido, int mesainicial, int mesafinal){
-		this.mesas = null; //Toda vez que chamar o método ele limpa
+	public static Garcom cadastrarGarcom(String apelido, int mesainicial, int mesafinal){
+		mesas = null; //Toda vez que chamar o método ele limpa
 		while(mesainicial <= mesafinal) {
 			Mesa e = repositorio.buscarMesa(mesainicial);
 			mesas.add(e);
@@ -87,7 +87,7 @@ public class Fachada {
 		return g;
 	}
 
-	public Conta criarConta(int idmesa) throws Exception{
+	public static Conta criarConta(int idmesa) throws Exception{
 		Mesa m = repositorio.buscarMesa(idmesa);
 		
 		if(m==null) {
@@ -106,7 +106,7 @@ public class Fachada {
 		return c;
 	}
 
-	public Conta consultarConta(int idmesa) throws Exception{
+	public static Conta consultarConta(int idmesa) throws Exception{
 		Mesa m = repositorio.buscarMesa(idmesa);
 		if(m==null) {
 			throw new Exception("Mesa não existe.");
@@ -115,12 +115,12 @@ public class Fachada {
 		return c;
 	}
 
-	public Produto solicitarProduto(int idmesa, String nomeproduto) throws Exception{
+	public static Produto solicitarProduto(int idmesa, String nomeproduto) throws Exception{
 		Produto p = repositorio.buscarProduto(nomeproduto);
 		if(p==null) {
 			throw new Exception("Produto não existe.");
 		}
-		Conta c = this.consultarConta(idmesa);
+		Conta c = Fachada.consultarConta(idmesa);
 		c.addProduto(p);
 		return p;
 	}
@@ -151,7 +151,7 @@ public class Fachada {
 		mesaDestino.setOcupada(true);
 	}
 
-	public void fecharConta(int idmesa) throws Exception{
+	public static void fecharConta(int idmesa) throws Exception{
 		Mesa m = repositorio.buscarMesa(idmesa);
 		Conta c = m.contaDaMesa();
 		if(c.getDtfechamento()!=null) {
@@ -162,8 +162,8 @@ public class Fachada {
 		m.setOcupada(false);
 	}
 
-	public double calcularGorjeta(String apelido, double total) throws Exception{
-		this.gorjeta = 0.0;
+	public static double calcularGorjeta(String apelido) throws Exception{
+		Fachada.gorjeta = 0.0;
 		Garcom garcom = repositorio.buscarGarcom(apelido);
 		if(garcom==null) {
 			throw new Exception("Garçom não existe.");
@@ -174,15 +174,15 @@ public class Fachada {
 		for(Mesa m : mesas) {
 			for(Conta c : m.getContas()) {
 				if(c.getDtfechamento().equals(dataDeHoje)) {
-					this.gorjeta = this.gorjeta + (c.getTotal() * 0.10); 
+					Fachada.gorjeta = Fachada.gorjeta + (c.getTotal() * 0.10); 
 				}
 			}
 		}
-		return this.gorjeta;
+		return Fachada.gorjeta;
 	}
 	
 	//=====================
-	public Produto addProduto(String nome, double preco) {
+	public static Produto addProduto(String nome, double preco) {
 		Produto p = new Produto(nome, preco);
 		repositorio.addProduto(p);
 		return p;
