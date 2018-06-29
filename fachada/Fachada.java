@@ -129,30 +129,23 @@ public class Fachada {
 		return p;
 	}
 
-	public void cancelarConta(int idmesa){
+	public static void cancelarConta(int idmesa){
 		Mesa m = repositorio.buscarMesa(idmesa);
 		Conta c = m.contaDaMesa();
 		m.removeConta(c);
 		repositorio.removeConta(c);
 	}
 
-	public void transferirConta(int idmesaorigem, int idmesadestino){
+	public static void transferirConta(int idmesaorigem, int idmesadestino){
 		Mesa mesaOrigem = repositorio.buscarMesa(idmesaorigem);
 		Mesa mesaDestino = repositorio.buscarMesa(idmesadestino);
-		Conta contOrigem = mesaOrigem.contaDaMesa();
-		Conta contDestino = mesaDestino.contaDaMesa();
-		ArrayList<Produto> produtos = contOrigem.getProdutos();
 		
-		//Apagar a conta
-		mesaOrigem.removeConta(contOrigem);
-		repositorio.removeConta(contOrigem);
-		
-		//transferir produtos
-		for (Produto p:produtos) {
-			contDestino.addProduto(p);
-		}
-		mesaOrigem.setOcupada(false);
+		Conta c = mesaOrigem.contaDaMesa();
+		c.setMesa(mesaDestino);
+		mesaDestino.addConta(c);
+		mesaOrigem.removeConta(c);
 		mesaDestino.setOcupada(true);
+		mesaOrigem.setOcupada(false);
 	}
 
 	public static void fecharConta(int idmesa) throws Exception{

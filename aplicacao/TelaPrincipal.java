@@ -211,8 +211,8 @@ public class TelaPrincipal {
 		mntmTransferirConta = new JMenuItem("Transferir conta");
 		mntmTransferirConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaTransferirConta j = new TelaTransferirConta();
+				j.setVisible(true);
 			}
 		});
 		mnConta.add(mntmTransferirConta);
@@ -220,8 +220,8 @@ public class TelaPrincipal {
 		mntmCancelarConta = new JMenuItem("Cancelar conta");
 		mntmCancelarConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaCancelarConta j = new TelaCancelarConta();
+				j.setVisible(true);
 			}
 		});
 		mnConta.add(mntmCancelarConta);
@@ -229,7 +229,7 @@ public class TelaPrincipal {
 		mntmFecharCona = new JMenuItem("Fechar conta");
 		mntmFecharCona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
+				//TelaCancelarConta j = new TelaCancelarConta();
 				//j.setVisible(true);
 			}
 		});
