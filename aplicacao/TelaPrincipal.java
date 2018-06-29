@@ -182,7 +182,7 @@ public class TelaPrincipal {
 		mntmcalcularGorjeta = new JMenuItem("Calcular gorjeta");
 		mntmcalcularGorjeta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
+				TelaCalcularGorjeta j = new TelaCalcularGorjeta();
 				//j.setVisible(true);
 			}
 		});
@@ -229,8 +229,8 @@ public class TelaPrincipal {
 		mntmFecharCona = new JMenuItem("Fechar conta");
 		mntmFecharCona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCancelarConta j = new TelaCancelarConta();
-				//j.setVisible(true);
+				TelaFecharConta j = new TelaFecharConta();
+				j.setVisible(true);
 			}
 		});
 		mnConta.add(mntmFecharCona);
