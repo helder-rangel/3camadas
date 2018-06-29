@@ -12,10 +12,10 @@ import java.util.Date;
 
 public class Restaurante {
 	
-	private ArrayList<Conta> contas;
-	private ArrayList<Mesa> mesas; 
-	private ArrayList<Garcom> garcons;
-	private ArrayList<Produto> produtos;
+	private ArrayList<Conta> contas  = new ArrayList<Conta>();
+	private ArrayList<Mesa> mesas  = new ArrayList<Mesa>();
+	private ArrayList<Garcom> garcons  = new ArrayList<Garcom>();
+	private ArrayList<Produto> produtos  = new ArrayList<Produto>();
 	
 	public ArrayList<Conta> getContas() {
 		return contas;
@@ -105,6 +105,21 @@ public class Restaurante {
 	     //String dataHora = data+" - "+hora;
 	     String dataHora = data;
 	     return dataHora;
+	}
+	public Restaurante() {
+		super();
+	}
+	
+	public void mesasGarcom(int inicio, int fim, Garcom garcom) {
+		while(inicio<=fim) {
+			for(Mesa m : mesas) {
+				if(m.getId()==inicio) {
+					m.setGarcom(garcom);
+					garcom.addMesa(m);
+				}
+			}
+			inicio++;
+		}
 	}
 	
 }

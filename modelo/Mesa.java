@@ -7,14 +7,13 @@ public class Mesa {
 	private int id;
 	private boolean ocupada;
 	private Garcom garcom;
-	private ArrayList<Conta> contas;
+	private ArrayList<Conta> contas = new ArrayList<Conta>();
 	
 	public Mesa(int id) {
 		super();
 		this.id = id;
 		this.ocupada = false;
 		this.garcom = null;
-		this.contas = null;
 	}
 
 	public int getId() {

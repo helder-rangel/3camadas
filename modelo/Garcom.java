@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Garcom {
 	private String apelido;
-	private ArrayList<Mesa> mesas;
+	private ArrayList<Mesa> mesas  = new ArrayList<Mesa>();
 	
 	public String getApelido() {
 		return apelido;
@@ -23,15 +23,22 @@ public class Garcom {
 		this.mesas = mesas;
 	}
 	
-	public Garcom(String apelido, ArrayList<Mesa> mesas) {
+	public Garcom(String apelido) {
 		super();
 		this.apelido = apelido;
-		this.mesas = mesas;
 	}
 	
 	@Override
 	public String toString() {
-		return "Garcom [apelido=" + apelido + ", mesas=" + mesas + "]";
+		String texto = "Garcom [apelido=" + apelido + ", mesas=";
+		if (mesas.isEmpty()) {
+			texto += " vazia";
+		}else {
+			for(Mesa m: mesas) 
+				texto += " " + m.getId()+",";
+		} 	
+		texto += "]";
+		return texto;		
 	}
 	
 	public void addMesa(Mesa m) {

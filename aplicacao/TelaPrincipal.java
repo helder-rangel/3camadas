@@ -84,6 +84,7 @@ public class TelaPrincipal {
 					p = Fachada.cadastrarProduto("porco", 10.0);
 					p = Fachada.cadastrarProduto("bode", 30.0);
 
+					Fachada.criarMesas(20);
 				}catch(Exception e){
 					System.out.println(e.getMessage());
 				}
@@ -114,8 +115,8 @@ public class TelaPrincipal {
 		mntmListarProdutos = new JMenuItem("Listar produtos");
 		mntmListarProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaListagemProduto j = new TelaListagemProduto();
+				j.setVisible(true);
 			}
 		});
 		mnRestaurante.add(mntmListarProdutos);
@@ -123,8 +124,8 @@ public class TelaPrincipal {
 		mntmListarGarcons = new JMenuItem("Listar garçons");
 		mntmListarGarcons.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaListagemGarcons j = new TelaListagemGarcons();
+				j.setVisible(true);
 			}
 		});
 		mnRestaurante.add(mntmListarGarcons);
@@ -132,8 +133,8 @@ public class TelaPrincipal {
 		mntmListarMesas = new JMenuItem("Listar mesas");
 		mntmListarMesas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaListagemMesas j = new TelaListagemMesas();
+				j.setVisible(true);
 			}
 		});
 		mnRestaurante.add(mntmListarMesas);
@@ -141,8 +142,8 @@ public class TelaPrincipal {
 		mntmListarContas = new JMenuItem("Listar contas");
 		mntmListarContas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaListagemContas j = new TelaListagemContas();
+				j.setVisible(true);
 			}
 		});
 		mnRestaurante.add(mntmListarContas);
@@ -152,8 +153,8 @@ public class TelaPrincipal {
 		mntmCadastrarProduto = new JMenuItem("Cadastrar produto");
 		mntmCadastrarProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaInserirProduto j = new TelaInserirProduto();
+				j.setVisible(true);
 			}
 		});
 		mnProduto.add(mntmCadastrarProduto);
@@ -172,8 +173,8 @@ public class TelaPrincipal {
 		mntmcadastrarGarcom = new JMenuItem("Cadastrar garçom");
 		mntmcadastrarGarcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaCadastrarGarcom j = new TelaCadastrarGarcom();
+				j.setVisible(true);
 			}
 		});
 		mnGarcom.add(mntmcadastrarGarcom);
@@ -234,74 +235,5 @@ public class TelaPrincipal {
 		});
 		mnConta.add(mntmFecharCona);
 		
-		
-		/*
-		mntmListar = new JMenuItem("Listar");
-		mntmListar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TelaListagemProduto j = new TelaListagemProduto();
-				j.setVisible(true);
-			}
-		});
-		
-		JMenuItem mntmApagar = new JMenuItem("Apagar");
-		mntmApagar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TelaApagarProduto j = new TelaApagarProduto();
-				j.setVisible(true);
-			}
-		});
-		mnProduto.add(mntmApagar);
-		mnProduto.add(mntmListar);
-
-		JMenu mnPrateleira = new JMenu("Prateleira");
-		menuBar.add(mnPrateleira);
-
-		JMenuItem mntmCriar = new JMenuItem("Criar");
-		mntmCriar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TelaCadastroPrateleira j = new TelaCadastroPrateleira();
-				j.setVisible(true);
-			}
-		});
-		mnPrateleira.add(mntmCriar);
-
-		JMenuItem mntmListar_1 = new JMenuItem("Listar");
-		mntmListar_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaListagemPrateleira j = new TelaListagemPrateleira();
-				j.setVisible(true);
-			}
-		});
-		mnPrateleira.add(mntmListar_1);
-
-		JMenuItem mntmInserirProduto = new JMenuItem("Inserir produto");
-		mntmInserirProduto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TelaInserirProdutoPrateleira j = new TelaInserirProdutoPrateleira();
-				j.setVisible(true);
-			}
-		});
-		mnPrateleira.add(mntmInserirProduto);
-		
-		JMenuItem mntmRemoverProduto = new JMenuItem("Remover produto");
-		mntmRemoverProduto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				TelaRemoverProdutoPrateleira j = new TelaRemoverProdutoPrateleira();
-				j.setVisible(true);
-			}
-		});
-		mnPrateleira.add(mntmRemoverProduto);
-		
-		JMenu mnConsulta = new JMenu("Consulta");
-		mnConsulta.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				TelaConsulta j = new TelaConsulta();
-				j.setVisible(true);
-			}
-		});
-		menuBar.add(mnConsulta);
-	*/
 	}
 }

@@ -17,7 +17,7 @@ package fachada;
 		    }
 		 
 		    public static void parte1(){
-		        try {   
+		        try {
 		            Produto p;
 		            p = Fachada.addProduto("feijoada", 25.0);
 		            p = Fachada.addProduto("bode guisado", 20.0);
@@ -27,7 +27,7 @@ package fachada;
 		            p = Fachada.addProduto("agua", 2.0);
 		            ArrayList<Produto> produtos = Fachada.listarProdutos();
 		            System.out.println("produtos cadastrados:");
-		            System.out.println(produtos);
+		            System.out.println(produtos.toString());
 		 
 		            Fachada.criarMesas(20);     // 20 mesas
 		            ArrayList<Mesa> mesas = Fachada.listarMesas();
@@ -42,6 +42,8 @@ package fachada;
 		            ArrayList<Garcom> garcons = Fachada.listarGarcons();
 		            System.out.println("garcons cadastrados:");
 		            System.out.println(garcons);
+		            
+		            System.out.println(mesas);
 		 
 		        }catch (Exception e) {
 		            System.out.println(e.getMessage());

@@ -8,7 +8,7 @@ public class Conta {
 	private String dtfechamento;
 	private double total;
 	private Mesa mesa;
-	private ArrayList<Produto> produtos;
+	private ArrayList<Produto> produtos  = new ArrayList<Produto>();
 	
 	public int getNumero() {
 		return numero;
@@ -62,7 +62,6 @@ public class Conta {
 		this.dtfechamento = null;
 		this.total = 0;
 		this.mesa = mesa;
-		this.produtos = null;
 	}
 	
 	public void addProduto(Produto p){
