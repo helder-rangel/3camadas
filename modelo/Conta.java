@@ -52,8 +52,15 @@ public class Conta {
 
 	@Override
 	public String toString() {
-		return "Conta [numero=" + numero + ", dtfechamento=" + dtfechamento + ", total=" + total + ", mesa=" + mesa
-				+ ", produtos=" + produtos + "]";
+		String texto = "Conta [numero=" + numero + ", dtfechamento=" + dtfechamento + ", total=" + total + ", mesa=" + mesa.getId(); 
+		if(produtos.isEmpty()) {
+			texto += " sem produtos.";
+		}else {
+			for(Produto m: produtos) 
+				texto += " " + m.getNome()+",";
+		}
+		return texto;
+				
 	}
 
 	public Conta(int numero, Mesa mesa) {

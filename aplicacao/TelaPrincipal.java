@@ -159,11 +159,11 @@ public class TelaPrincipal {
 		});
 		mnProduto.add(mntmCadastrarProduto);
 		
-		mntmSoliciarProduto = new JMenuItem("Listar contas");
+		mntmSoliciarProduto = new JMenuItem("Solicitar produto");
 		mntmSoliciarProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaSolicitarProduto j = new TelaSolicitarProduto();
+				j.setVisible(true);
 			}
 		});
 		mnProduto.add(mntmSoliciarProduto);
@@ -193,8 +193,8 @@ public class TelaPrincipal {
 		mntmCriarConta = new JMenuItem("Criar conta");
 		mntmCriarConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaCriarConta j = new TelaCriarConta();
+				j.setVisible(true);
 			}
 		});
 		mnConta.add(mntmCriarConta);
@@ -202,8 +202,8 @@ public class TelaPrincipal {
 		mntmConsultarConta = new JMenuItem("Consultar conta");
 		mntmConsultarConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TelaCadastroProduto j = new TelaCadastroProduto();
-				//j.setVisible(true);
+				TelaConsultarConta j = new TelaConsultarConta();
+				j.setVisible(true);
 			}
 		});
 		mnConta.add(mntmConsultarConta);

@@ -18,11 +18,9 @@ import javax.swing.border.EmptyBorder;
 
 import fachada.Fachada;
 
-public class TelaInserirProduto extends JFrame {
+public class TelaCriarConta extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblPreco;
-	private JLabel lblNome;
-	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnInserir;
 	private DefaultListModel<String> model = new DefaultListModel<String>();	
@@ -48,7 +46,7 @@ public class TelaInserirProduto extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public TelaInserirProduto() {
+	public TelaCriarConta() {
 		initialize();
 	}
 
@@ -56,7 +54,7 @@ public class TelaInserirProduto extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setTitle("Inserir Produto");
+		setTitle("Criar conta");
 		setBounds(100, 100, 345, 229);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = new JPanel();
@@ -65,16 +63,9 @@ public class TelaInserirProduto extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		lblPreco = new JLabel("Preço do produto");
+		lblPreco = new JLabel("Id da mesa");
 		lblPreco.setBounds(19, 56, 102, 14);
 		contentPane.add(this.lblPreco);
-		lblNome = new JLabel("Nome do Produto");
-		lblNome.setBounds(19, 28, 102, 14);
-		contentPane.add(this.lblNome);
-		textField = new JTextField();
-		textField.setBounds(124, 25, 86, 20);
-		contentPane.add(this.textField);
-		textField.setColumns(10);
 		textField_1 = new JTextField();
 		textField_1.setBounds(124, 53, 40, 20);
 		contentPane.add(this.textField_1);
@@ -82,11 +73,10 @@ public class TelaInserirProduto extends JFrame {
 		btnInserir = new JButton("Inserir");
 		btnInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					String nome = textField.getText();
-					double preco = Double.parseDouble(textField_1.getText());
-					Fachada.addProduto(nome, preco);
-					lblmsg.setText("produto inserido ");
+				try {					
+					int idmesa = Integer.parseInt(textField_1.getText());
+					Fachada.criarConta(idmesa);
+					lblmsg.setText("conta criada");
 				} catch (NumberFormatException e) {
 					lblmsg.setText("campo id deve ser numerico");
 				} catch (Exception e) {
@@ -102,9 +92,8 @@ public class TelaInserirProduto extends JFrame {
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				textField.setText("");
 				textField_1.setText("");
-				textField.requestFocus();
+				textField_1.requestFocus();
 			}
 		});
 		btnLimpar.setBounds(172, 101, 141, 23);

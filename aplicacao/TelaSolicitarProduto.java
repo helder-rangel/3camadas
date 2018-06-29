@@ -17,8 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fachada.Fachada;
+import modelo.Produto;
 
-public class TelaInserirProduto extends JFrame {
+public class TelaSolicitarProduto extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblPreco;
 	private JLabel lblNome;
@@ -48,7 +49,7 @@ public class TelaInserirProduto extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public TelaInserirProduto() {
+	public TelaSolicitarProduto() {
 		initialize();
 	}
 
@@ -56,7 +57,7 @@ public class TelaInserirProduto extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setTitle("Inserir Produto");
+		setTitle("Solicitar produto");
 		setBounds(100, 100, 345, 229);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = new JPanel();
@@ -65,7 +66,7 @@ public class TelaInserirProduto extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		lblPreco = new JLabel("Preço do produto");
+		lblPreco = new JLabel("ID da mesa");
 		lblPreco.setBounds(19, 56, 102, 14);
 		contentPane.add(this.lblPreco);
 		lblNome = new JLabel("Nome do Produto");
@@ -83,12 +84,10 @@ public class TelaInserirProduto extends JFrame {
 		btnInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					String nome = textField.getText();
-					double preco = Double.parseDouble(textField_1.getText());
-					Fachada.addProduto(nome, preco);
-					lblmsg.setText("produto inserido ");
-				} catch (NumberFormatException e) {
-					lblmsg.setText("campo id deve ser numerico");
+					String nomeproduto = textField.getText();
+					int idmesa = Integer.parseInt(textField_1.getText());
+					Produto p = Fachada.solicitarProduto(idmesa, nomeproduto);
+					lblmsg.setText(p.getNome()+ " solicitado.");
 				} catch (Exception e) {
 					lblmsg.setText(e.getMessage());
 				}
