@@ -183,7 +183,7 @@ public class TelaPrincipal {
 		mntmcalcularGorjeta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaCalcularGorjeta j = new TelaCalcularGorjeta();
-				//j.setVisible(true);
+				j.setVisible(true);
 			}
 		});
 		mnGarcom.add(mntmcalcularGorjeta);

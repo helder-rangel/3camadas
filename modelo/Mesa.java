@@ -50,7 +50,7 @@ public class Mesa {
 
 	@Override
 	public String toString() {
-		return "Mesa [id=" + id + ", ocupada=" + ocupada + ", garcom=" + garcom + ", contas=" + contas + "]";
+		return "Mesa [id=" + id + ", ocupada=" + ocupada + ", garcom=" + garcom.getApelido() + ", contas=" + contas + "]";
 	}
 	
 	public void addConta(Conta c) {

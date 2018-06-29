@@ -14,7 +14,6 @@ public class Fachada {
 	private static Restaurante repositorio = new Restaurante();
 	private static int idmesas = 0;
 	private static int idcontas = 0;
-	private static ArrayList<Mesa> mesas = new ArrayList<Mesa>();
 	private static Double gorjeta = 0.0;
 		
 	public Fachada() {
@@ -77,17 +76,9 @@ public class Fachada {
 	}
 
 	public static Garcom cadastrarGarcom(String apelido, int mesainicial, int mesafinal){
-		//mesas = null;
 		Garcom g = new Garcom(apelido);
 		repositorio.mesasGarcom(mesainicial, mesafinal, g);
 		repositorio.addGarcom(g);
-		
-		/*while(mesainicial <= mesafinal) {
-			Mesa e = repositorio.buscarMesa(mesainicial);
-			mesas.add(e);
-			mesainicial++;
-		}*/
-		
 		return g;
 	}
 
@@ -126,6 +117,9 @@ public class Fachada {
 		}
 		Conta c = Fachada.consultarConta(idmesa);
 		c.addProduto(p);
+		double total = c.getTotal();
+		total += p.getPreco();
+		c.setTotal(total);
 		return p;
 	}
 
@@ -178,7 +172,6 @@ public class Fachada {
 		return Fachada.gorjeta;
 	}
 	
-	//=====================
 	public static Produto addProduto(String nome, double preco) {
 		Produto p = new Produto(nome, preco);
 		repositorio.addProduto(p);
