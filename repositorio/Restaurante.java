@@ -112,10 +112,10 @@ public class Restaurante {
 	
 	public void mesasGarcom(int inicio, int fim, Garcom garcom) {
 		while(inicio<=fim) {
-			for(Mesa m : mesas) {
-				if(m.getId()==inicio) {
-					m.setGarcom(garcom);
-					garcom.addMesa(m);
+			for(Mesa mesa : mesas) {
+				if(mesa.getId()==inicio) {
+					mesa.setGarcom(garcom);
+					garcom.addMesa(mesa);
 				}
 			}
 			inicio++;

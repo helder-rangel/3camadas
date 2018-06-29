@@ -20,12 +20,12 @@ public class Fachada {
 		super();
 	}
 	
-	public Produto buscarProduto (String nome) throws Exception{
-		Produto p = repositorio.buscarProduto(nome);
-		if(p==null) {
+	public static Produto buscarProduto (String nome) throws Exception{
+		Produto produto = repositorio.buscarProduto(nome);
+		if(produto==null) {
 			throw new Exception("Produto não encontrado.");
 		}
-		return p;
+		return produto;
 	}
 	
 	public static ArrayList<Produto> listarProdutos() throws Exception{
@@ -70,87 +70,93 @@ public class Fachada {
 	}
 
 	public static Produto cadastrarProduto(String nome, double preco) {
-		Produto p = new Produto(nome, preco);
-		repositorio.addProduto(p);
-		return p;
+		Produto produtoCriado = new Produto(nome, preco);
+		repositorio.addProduto(produtoCriado);
+		return produtoCriado;
 	}
 
 	public static Garcom cadastrarGarcom(String apelido, int mesainicial, int mesafinal){
-		Garcom g = new Garcom(apelido);
-		repositorio.mesasGarcom(mesainicial, mesafinal, g);
-		repositorio.addGarcom(g);
-		return g;
+		Garcom garcom = new Garcom(apelido);
+		repositorio.mesasGarcom(mesainicial, mesafinal, garcom);
+		repositorio.addGarcom(garcom);
+		return garcom;
 	}
 
 	public static Conta criarConta(int idmesa) throws Exception{
-		Mesa m = repositorio.buscarMesa(idmesa);
+		Mesa mesa = repositorio.buscarMesa(idmesa);
 		
-		if(m==null) {
+		if(mesa==null) {
 			throw new Exception("Mesa não existe.");
 		}
 		
-		if(m.isOcupada()==true) {
+		if(mesa.isOcupada()==true) {
 			throw new Exception("Última conta da mesa ainda não foi fechada.");
 		}
 		
-		Conta c = new Conta(Fachada.idcontas,m);
+		Conta novaConta = new Conta(Fachada.idcontas,mesa);
 		Fachada.idcontas++;
-		repositorio.addConta(c);
-		m.addConta(c);//Adiciona a referencia de conta na mesa
-		m.setOcupada(true);
-		return c;
+		repositorio.addConta(novaConta);
+		mesa.addConta(novaConta);//Adiciona a referencia de conta na mesa
+		mesa.setOcupada(true);
+		return novaConta;
 	}
 
 	public static Conta consultarConta(int idmesa) throws Exception{
-		Mesa m = repositorio.buscarMesa(idmesa);
-		if(m==null) {
+		Mesa mesa = repositorio.buscarMesa(idmesa);
+		if(mesa==null) {
 			throw new Exception("Mesa não existe.");
 		}
-		Conta c = m.contaDaMesa(); //Criei esse método
-		return c;
+		Conta conta = mesa.contaDaMesa(); //Criei esse método
+		return conta;
 	}
 
 	public static Produto solicitarProduto(int idmesa, String nomeproduto) throws Exception{
-		Produto p = repositorio.buscarProduto(nomeproduto);
-		if(p==null) {
+		Produto produto = repositorio.buscarProduto(nomeproduto);
+		if(produto==null) {
 			throw new Exception("Produto não existe.");
 		}
-		Conta c = Fachada.consultarConta(idmesa);
-		c.addProduto(p);
-		double total = c.getTotal();
-		total += p.getPreco();
-		c.setTotal(total);
-		return p;
+		Conta conta = Fachada.consultarConta(idmesa);
+		conta.addProduto(produto);
+		double total = conta.getTotal();
+		total += produto.getPreco();
+		conta.setTotal(total);
+		return produto;
 	}
 
 	public static void cancelarConta(int idmesa){
-		Mesa m = repositorio.buscarMesa(idmesa);
-		Conta c = m.contaDaMesa();
-		m.removeConta(c);
-		repositorio.removeConta(c);
+		Mesa mesa = repositorio.buscarMesa(idmesa);
+		Conta conta = mesa.contaDaMesa();
+		mesa.removeConta(conta);
+		mesa.setOcupada(false);
+		repositorio.removeConta(conta);
 	}
 
 	public static void transferirConta(int idmesaorigem, int idmesadestino){
+		//Busca as mesas
 		Mesa mesaOrigem = repositorio.buscarMesa(idmesaorigem);
 		Mesa mesaDestino = repositorio.buscarMesa(idmesadestino);
-		
-		Conta c = mesaOrigem.contaDaMesa();
-		c.setMesa(mesaDestino);
-		mesaDestino.addConta(c);
-		mesaOrigem.removeConta(c);
+		//Busca a conta
+		Conta conta = mesaOrigem.contaDaMesa();
+		//Seta a nova mesa na conta
+		conta.setMesa(mesaDestino);
+		//Adiciona a conta na nova mesa
+		mesaDestino.addConta(conta);
+		//Remova a conta da antiga mesa
+		mesaOrigem.removeConta(conta);
+		//Altera os status das duas mesas
 		mesaDestino.setOcupada(true);
 		mesaOrigem.setOcupada(false);
 	}
 
 	public static void fecharConta(int idmesa) throws Exception{
-		Mesa m = repositorio.buscarMesa(idmesa);
-		Conta c = m.contaDaMesa();
-		if(c.getDtfechamento()!=null) {
+		Mesa mesa = repositorio.buscarMesa(idmesa);
+		Conta conta = mesa.contaDaMesa();
+		if(conta.getDtfechamento()!=null) {
 			throw new Exception("Conta já fechada.");
 		}
 		String data = repositorio.dataHoraAtual();
-		c.setDtfechamento(data);
-		m.setOcupada(false);
+		conta.setDtfechamento(data);
+		mesa.setOcupada(false);
 	}
 
 	public static double calcularGorjeta(String apelido) throws Exception{
@@ -173,9 +179,9 @@ public class Fachada {
 	}
 	
 	public static Produto addProduto(String nome, double preco) {
-		Produto p = new Produto(nome, preco);
-		repositorio.addProduto(p);
-		return p;
+		Produto produto = new Produto(nome, preco);
+		repositorio.addProduto(produto);
+		return produto;
 	}
 	
 }
