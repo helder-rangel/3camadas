@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 
 public class Garcom {
-	private String apelido;
+	private static String apelido;
 	private ArrayList<Mesa> mesas  = new ArrayList<Mesa>();
 	
-	public String getApelido() {
+	public static String getApelido() {
 		return apelido;
 	}
 	
